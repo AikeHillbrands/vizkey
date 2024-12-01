@@ -16,3 +16,10 @@ export interface ChartData {
     backgroundColor?: string[]
   }[]
 } 
+
+export type AggregationType = "sum" | "max" | "min" | "count" | "average"
+
+export type Aggregation = {
+  field: string
+  type: AggregationType
+}

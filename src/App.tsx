@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Chart as ChartJS, registerables } from 'chart.js'
 import Papa from 'papaparse'
 import { DataInput } from './components/DataInput'
 import { ConfigPanel } from './components/ConfigPanel'
 import { TabLayout } from './components/TabLayout'
-import { DataItem, ChartType, GroupByConfig } from './types'
-import { processData } from './utils/dataProcessing'
+import { DataItem, ChartType, GroupByConfig, Aggregation } from './types'
 
 ChartJS.register(...registerables)
 
@@ -137,37 +136,46 @@ function App() {
   const [chartType, setChartType] = useState<ChartType>(null)
   const [data, setData] = useState<DataItem[]>(SAMPLE_DATA)
   const [inputText, setInputText] = useState(JSON.stringify(SAMPLE_DATA, null, 2))
-  const [fields, setFields] = useState<string[]>(Object.keys(SAMPLE_DATA[0]))
   const [groupByConfig, setGroupByConfig] = useState<GroupByConfig>({
     fields: []
   })
-
+  const [aggregations, setAggregations] = useState<Aggregation[]>([])
+  
   const parseData = (input: string) => {
     try {
       // Try parsing as JSON first
       const jsonData = JSON.parse(input) as DataItem[]
       setData(jsonData)
-      const newFields = Object.keys(jsonData[0])
-      setFields(newFields)
-      // Reset group by configs when new data is loaded
+
+      // Reset configurations when new data is loaded
       setGroupByConfig({ fields: [] })
+      setAggregations([])
     } catch {
       // If JSON parsing fails, try CSV
       Papa.parse(input, {
         complete: (results) => {
           const csvData = results.data as DataItem[]
           setData(csvData)
-          const newFields = Object.keys(csvData[0])
-          setFields(newFields)
-          // Reset group by configs when new data is loaded
+          // Reset configurations when new data is loaded
           setGroupByConfig({ fields: [] })
+          setAggregations([])
         },
         header: true
       })
     }
   }
 
-  const processedData = processData(data, groupByConfig)
+  const fields = useMemo(() => {
+    const fields: string[] = []
+    for(const item of data) {
+      for(const key in item) {
+        if(!fields.includes(key)) {
+          fields.push(key)
+        }
+      }
+    }
+    return fields
+  }, [data])
 
   return (
     <TabLayout activeTab={activeTab} onTabChange={setActiveTab}>
@@ -183,9 +191,11 @@ function App() {
           fields={fields}
           groupByConfigs={groupByConfig}
           onGroupByConfigsChange={setGroupByConfig}
+          aggregations={aggregations}
+          onAggregationsChange={setAggregations}
           chartType={chartType}
           onChartTypeChange={setChartType}
-          data={processedData}
+          data={data}
         />
       )}
     </TabLayout>
