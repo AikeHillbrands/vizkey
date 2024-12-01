@@ -4,8 +4,9 @@ interface PropertyListProps {
   data: DataItem[]
 }
 
-function getPropertyType(value: any): string {
+function getPropertyType(value: string | number | boolean): string {
   if (typeof value === 'number') return 'number'
+  if (typeof value === 'boolean') return 'boolean'
   if (typeof value === 'string') {
     // Try to parse as number
     if (!isNaN(Number(value))) return 'number (as string)'
@@ -32,21 +33,23 @@ export function PropertyList({ data }: PropertyListProps) {
   }))
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-bold">Detected Properties</h2>
-      <div className="space-y-2">
-        {properties.map(prop => (
-          <div
-            key={prop.name}
-            className="p-3 border rounded bg-white"
-          >
-            <div className="font-medium">{prop.name}</div>
-            <div className="text-sm text-gray-600">Type: {prop.type}</div>
-            <div className="text-sm text-gray-500 truncate">
-              Example: {prop.example}
+    <div className="h-full flex flex-col">
+      <h2 className="text-lg font-bold mb-4">Detected Properties</h2>
+      <div className="flex-1 overflow-auto">
+        <div className="space-y-2">
+          {properties.map(prop => (
+            <div
+              key={prop.name}
+              className="p-3 border rounded bg-white hover:border-blue-500 transition-colors"
+            >
+              <div className="font-medium">{prop.name}</div>
+              <div className="text-sm text-gray-600">Type: {prop.type}</div>
+              <div className="text-sm text-gray-500 truncate">
+                Example: {prop.example}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )

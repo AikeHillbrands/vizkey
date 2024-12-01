@@ -1,7 +1,7 @@
 export type ChartType = 'bar' | 'line' | 'scatter' | null
 
 export interface DataItem {
-  [key: string]: string | number
+  [key: string]: string | number | boolean
 }
 
 export interface GroupByConfig {

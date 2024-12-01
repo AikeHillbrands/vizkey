@@ -28,7 +28,7 @@ export function DataInput({ value, onChange, onDataParse, data }: DataInputProps
     <div className="h-full flex">
       <div className="w-1/2 p-4 border-r">
         <textarea
-          className="w-full h-full p-4 border rounded-lg font-mono"
+          className="w-full h-full p-4 border rounded-lg font-mono text-xs"
           placeholder="Paste your JSON or CSV data here or drag a file..."
           value={value}
           onChange={(e) => {
