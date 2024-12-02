@@ -1,6 +1,9 @@
-import { DataItem, Field } from '../types'
+import { DataItem, Field } from "../types"
 
-export function DataTable({ rows, fields }: {
+export function DataTable({
+  rows,
+  fields,
+}: {
   rows: DataItem[]
   fields: Field[]
 }) {
@@ -11,7 +14,7 @@ export function DataTable({ rows, fields }: {
       <table className="w-full border-collapse">
         <thead>
           <tr>
-            {fields.map(field => (
+            {fields.map((field) => (
               <th
                 key={field.name}
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wider bg-gray-50 dark:bg-gray-800"
@@ -27,14 +30,35 @@ export function DataTable({ rows, fields }: {
               {fields.map((field, fieldIndex) => {
                 const value = row[field.name]
 
-                if (value === 'undefined') return <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900">
-                  <span className="italic">undefined</span>
-                </td>
+                if (value === "undefined")
+                  return (
+                    <td
+                      key={fieldIndex}
+                      className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900"
+                    >
+                      <span className="italic">undefined</span>
+                    </td>
+                  )
 
-                const stringValue = value instanceof Date ? value.toISOString() : String(value)
+                if (typeof value === "string" && value.length === 0) {
+                  return (
+                    <td
+                      key={fieldIndex}
+                      className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900"
+                    >
+                      <span className="italic">empty</span>
+                    </td>
+                  )
+                }
+
+                const stringValue =
+                  value instanceof Date ? value.toISOString() : String(value)
 
                 return (
-                  <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-xs text-gray-900 dark:text-gray-200 bg-white dark:bg-gray-900">
+                  <td
+                    key={fieldIndex}
+                    className="px-6 py-4 whitespace-nowrap text-xs text-gray-900 dark:text-gray-200 bg-white dark:bg-gray-900"
+                  >
                     {stringValue}
                   </td>
                 )
@@ -45,4 +69,4 @@ export function DataTable({ rows, fields }: {
       </table>
     </div>
   )
-} 
+}
