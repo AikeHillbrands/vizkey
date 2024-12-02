@@ -77,7 +77,7 @@ export function ChartingPage({
       </div>
 
       {/* Right side - Visualization */}
-      <div className="flex-1 p-4 overflow-auto">
+      <div className="flex-1 overflow-auto">
         {chartType ? (
           <DataChart rows={processedData.rows} type={chartType} />
         ) : (
