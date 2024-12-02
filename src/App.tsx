@@ -5,7 +5,6 @@ import { DataInput } from "./components/DataInput"
 import { ChartingPage } from "./components/ChartingPage"
 import { TabLayout } from "./components/TabLayout"
 import { InputRecord } from "./types"
-import { EXAMPLE_DATA } from "./example-data"
 import { processInput } from "./utils/process-inputs"
 
 ChartJS.register(...registerables)
@@ -13,9 +12,7 @@ ChartJS.register(...registerables)
 function App() {
   const [activeTab, setActiveTab] = useState<"data" | "config">("data")
 
-  const [inputText, setInputText] = useState(
-    JSON.stringify(EXAMPLE_DATA, null, 2)
-  )
+  const [inputText, setInputText] = useState("")
 
   const inputData = useMemo(() => {
     const data = tryParseInputData(inputText)
