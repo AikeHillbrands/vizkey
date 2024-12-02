@@ -57,7 +57,7 @@ export function detectValue(
   value: InputValue,
   fieldDetection: FieldDetection
 ): void {
-  if (value === null || value === undefined) {
+  if (value === null || value === undefined || value === "") {
     fieldDetection.nullFounds++
     return
   }
@@ -75,6 +75,11 @@ export function detectValue(
   }
 
   if (typeof value === "string") {
+    if(value.match(/^\d+$/) || value.match(/^\d+\.\d+$/)) {
+      fieldDetection.numberFounds++
+      return
+    }
+
     if (!isNaN(new Date(value).getTime())) {
       fieldDetection.dateFounds++
     }
