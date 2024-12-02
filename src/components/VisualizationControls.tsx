@@ -10,7 +10,7 @@ export function VisualizationControls({ chartType, onChartTypeChange }: Visualiz
     <div className="space-y-2">
       <h3 className="font-bold">Visualization</h3>
       <select
-        className="w-full p-2 border rounded dark:bg-gray-900"
+        className="w-full p-2 border rounded dark:bg-gray-900 text-sm"
         value={chartType || ''}
         onChange={(e) => onChartTypeChange(e.target.value as ChartType)}
       >

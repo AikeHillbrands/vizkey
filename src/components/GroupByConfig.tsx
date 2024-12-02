@@ -44,7 +44,8 @@ export function GroupByConfig({
       <div key={field.name} className="flex flex-col space-y-2">
         <button
           onClick={() => toggleField(field)}
-          className={`p-2 rounded text-left truncate border ${
+          title={field.name}
+          className={`p-2 rounded text-left text-sm truncate border ${
             isSelected
               ? 'bg-blue-100 border-blue-500 ring-1 ring-blue-500 text-blue-700 dark:bg-blue-900 dark:border-blue-700 dark:ring-blue-700 dark:text-blue-300'
               : 'border-gray-200 dark:border-gray-700 hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-700'

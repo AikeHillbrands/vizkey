@@ -43,7 +43,7 @@ export function AggregationSection({
         {aggregations.map((aggregation, index) => (
           <div key={index} className="flex items-center gap-2">
             <select
-              className="flex-1 p-2 border rounded dark:bg-gray-900"
+              className="flex-1 p-2 border rounded dark:bg-gray-900 text-sm"
               value={aggregation.field.name}
               onChange={(e) => {
                 const field = numericFields.find(f => f.name === e.target.value)
@@ -56,7 +56,7 @@ export function AggregationSection({
               ))}
             </select>
             <select
-              className="flex-1 p-2 border rounded dark:bg-gray-900"
+              className="flex-1 p-2 border rounded dark:bg-gray-900 text-sm"
               value={aggregation.type}
               onChange={(e) => {
                 const field = numericFields.find(f => f.name === aggregation.field.name)

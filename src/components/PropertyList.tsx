@@ -32,7 +32,7 @@ const TYPE_COLORS: Record<
 
 export function PropertyList({ fields }: PropertyListProps) {
   if (!fields.length)
-    return <div className="text-gray-500 italic">No data loaded</div>
+    return <div className="text-gray-500 italic text-center mt-6">No data loaded</div>
 
   
   const properties = fields.map((field) => {

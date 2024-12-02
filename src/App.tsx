@@ -43,7 +43,6 @@ function App() {
 export default App
 
 function tryParseInputData(input: string) {
-  console.log("input", input)
   try {
     // Try parsing as JSON first
     const jsonData = JSON.parse(input)
