@@ -44,8 +44,8 @@ export function PropertyList({ fields }: PropertyListProps) {
   })
 
   return (
-    <div className="h-full flex flex-col">
-      <h2 className="text-lg font-bold mb-4">Detected Properties</h2>
+    <div className="h-full flex flex-col px-4">
+      <h2 className="text-lg font-bold mb-4 mt-4">Detected Properties</h2>
       <div className="flex-1 overflow-auto">
         <div className="space-y-2">
           {properties.map((prop) => (
@@ -54,7 +54,7 @@ export function PropertyList({ fields }: PropertyListProps) {
               className={`p-3 border rounded transition-colors ${prop.colors.bg} ${prop.colors.border} hover:border-blue-500`}
             >
               <div className="flex justify-between">
-                <span className="font-mono font-semibold text-sm px-1 py-0.5 rounded border mr-2 mb-1">
+                <span className="font-mono font-semibold text-sm px-1 py-0.5 rounded border mr-2 mb-1 dark:border-gray-300">
                   {prop.name}
                 </span>
                 <span className={`text-sm ${prop.colors.text}`}>

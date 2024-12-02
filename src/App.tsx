@@ -24,8 +24,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <div className="border-b border-gray-200 dark:border-gray-700">
-      </div>
+      <div className="border-b border-gray-200 dark:border-gray-700"></div>
       <TabLayout activeTab={activeTab} onTabChange={setActiveTab}>
         {activeTab === "data" ? (
           <DataInput
@@ -47,9 +46,9 @@ function tryParseInputData(input: string) {
   console.log("input", input)
   try {
     // Try parsing as JSON first
-    const jsonData = JSON.parse(input) as InputRecord[]
+    const jsonData = JSON.parse(input)
 
-    return jsonData
+    return flattenJson(jsonData)
   } catch {
     let result: InputRecord[] = []
     // If JSON parsing fails, try CSV
@@ -61,5 +60,35 @@ function tryParseInputData(input: string) {
     })
 
     return result
+  }
+}
+
+function flattenJson(json: unknown[]): InputRecord[] {
+  const result: Record<string, unknown>[] = []
+
+  for (const item of json) {
+    const flattenedItem: Record<string, unknown> = {}
+    flattenRecursively(item, [], flattenedItem)
+    result.push(flattenedItem)
+  }
+
+  return result as InputRecord[]
+}
+
+function flattenRecursively(
+  obj: unknown,
+  path: string[],
+  result: Record<string, unknown>
+) {
+  if (obj && typeof obj === "object" && !Array.isArray(obj)) {
+    for (const key in obj) {
+      flattenRecursively(
+        (obj as Record<string, unknown>)[key],
+        [...path, key],
+        result
+      )
+    }
+  } else {
+    result[path.join(".")] = obj
   }
 }

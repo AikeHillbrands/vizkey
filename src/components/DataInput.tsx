@@ -34,7 +34,7 @@ export function DataInput({ value, onChange, fields }: {
           onDrop={handleFileInput}
         />
       </div>
-      <div className="w-1/2 p-4 bg-gray-50 dark:bg-gray-900">
+      <div className="w-1/2 bg-gray-50 dark:bg-gray-900">
         <PropertyList fields={fields} />
       </div>
     </div>
