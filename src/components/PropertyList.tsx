@@ -1,19 +1,11 @@
-import { DataItem } from "../types"
+import { Field, FieldType } from "../types"
 
 interface PropertyListProps {
-  data: DataItem[]
+  fields: Field[]
 }
 
-type PropertyType =
-  | "number"
-  | "boolean"
-  | "string"
-  | "date"
-  | "number (as string)"
-  | "unknown"
-
 const TYPE_COLORS: Record<
-  PropertyType,
+  FieldType,
   { bg: string; text: string; border: string }
 > = {
   number: {
@@ -36,44 +28,18 @@ const TYPE_COLORS: Record<
     text: "text-purple-700",
     border: "border-purple-200",
   },
-  "number (as string)": {
-    bg: "bg-blue-50/50",
-    text: "text-blue-600",
-    border: "border-blue-100",
-  },
-  unknown: {
-    bg: "bg-white",
-    text: "text-gray-700",
-    border: "border-gray-200",
-  },
 }
 
-function getPropertyType(value: string | number | boolean): PropertyType {
-  if (typeof value === "number") return "number"
-  if (typeof value === "boolean") return "boolean"
-  if (typeof value === "string") {
-    // Try to parse as number
-    if (!isNaN(Number(value))) return "number (as string)"
-    // Try to parse as date
-    const date = new Date(value)
-    if (!isNaN(date.getTime())) return "date"
-    return "string"
-  }
-  return "unknown"
-}
-
-export function PropertyList({ data }: PropertyListProps) {
-  if (!data.length)
+export function PropertyList({ fields }: PropertyListProps) {
+  if (!fields.length)
     return <div className="text-gray-500 italic">No data loaded</div>
 
-  const firstRow = data[0]
-  const properties = Object.entries(firstRow).map(([key, value]) => {
-    const type = getPropertyType(value)
+  
+  const properties = fields.map((field) => {
     return {
-      name: key,
-      type,
-      example: String(value),
-      colors: TYPE_COLORS[type],
+      name: field.name,
+      type: field.type,
+      colors: TYPE_COLORS[field.type],
     }
   })
 
@@ -94,10 +60,6 @@ export function PropertyList({ data }: PropertyListProps) {
                 <span className={`text-sm ${prop.colors.text}`}>
                   Type: {prop.type}
                 </span>
-              </div>
-
-              <div className="text-sm text-gray-500 truncate">
-                Example: {prop.example}
               </div>
             </div>
           ))}

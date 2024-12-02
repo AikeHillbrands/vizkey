@@ -24,7 +24,7 @@ export const processData = ({
   // Group the data
   for (const item of data) {
     const groupKey = groupByConfig.fields
-      .map((field) => String(item[field]))
+      .map((field) => String(item[field.name]))
       .join("_")
 
     groupedData[groupKey] ??= {
@@ -33,7 +33,7 @@ export const processData = ({
     }
 
     for (const field of groupByConfig.fields) {
-      groupedData[groupKey].resultEntry[field] = item[field]
+      groupedData[groupKey].resultEntry[field.name] = item[field.name]
     }
 
     groupedData[groupKey].entriesInGroup.push(item)
@@ -49,11 +49,11 @@ export const processData = ({
       let max = -Infinity
 
       for (const entry of group.entriesInGroup) {
-        const value = entry[aggregation.field]
+        const value = entry[aggregation.field.name]
 
         if (typeof value !== "number") {
           throw new Error(
-            `Invalid value type for aggregation field ${aggregation.field}`
+            `Invalid value type for aggregation field ${aggregation.field.name}`
           )
         }
 
@@ -65,19 +65,19 @@ export const processData = ({
 
       switch (aggregation.type) {
         case "sum":
-          group.resultEntry[`sum(${aggregation.field})`] = total
+          group.resultEntry[`sum(${aggregation.field.name})`] = total
           break
         case "max":
-          group.resultEntry[`max(${aggregation.field})`] = max
+          group.resultEntry[`max(${aggregation.field.name})`] = max
           break
         case "min":
-          group.resultEntry[`min(${aggregation.field})`] = min
+          group.resultEntry[`min(${aggregation.field.name})`] = min
           break
         case "count":
-          group.resultEntry[`count(${aggregation.field})`] = count
+          group.resultEntry[`count(${aggregation.field.name})`] = count
           break
         case "average":
-          group.resultEntry[`average(${aggregation.field})`] = total / count
+          group.resultEntry[`average(${aggregation.field.name})`] = total / count
           break
       }
     }

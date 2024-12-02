@@ -1,9 +1,10 @@
+import { Field } from "../types"
 
 
 interface GroupByConfigProps {
-  fields: string[]
-  selectedFields: string[]
-  onFieldsChange: (fields: string[]) => void
+  fields: Field[]
+  selectedFields: Field[]
+  onFieldsChange: (fields: Field[]) => void
 }
 
 export function GroupByConfig({
@@ -11,7 +12,7 @@ export function GroupByConfig({
   selectedFields,
   onFieldsChange,
 }: GroupByConfigProps) {
-  const toggleField = (field: string) => {
+  const toggleField = (field: Field) => {
     if (selectedFields.includes(field)) {
       onFieldsChange(selectedFields.filter(f => f !== field))
     } else {
@@ -24,7 +25,7 @@ export function GroupByConfig({
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
         {fields.map(field => (
           <button
-            key={field}
+            key={field.name}
             onClick={() => toggleField(field)}
             className={`p-2 rounded text-left truncate ${
               selectedFields.includes(field)
@@ -32,7 +33,7 @@ export function GroupByConfig({
                 : 'border border-gray-300 hover:border-blue-500'
             }`}
           >
-            {field}
+            {field.name}
           </button>
         ))}
       </div>

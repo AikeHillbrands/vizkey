@@ -1,15 +1,15 @@
 import { useCallback } from 'react'
-import { DataItem } from '../types'
+import { Field } from '../types'
 import { PropertyList } from './PropertyList'
 
 interface DataInputProps {
   value: string
   onChange: (value: string) => void
   onDataParse: (text: string) => void
-  data: DataItem[]
+  fields: Field[]
 }
 
-export function DataInput({ value, onChange, onDataParse, data }: DataInputProps) {
+export function DataInput({ value, onChange, onDataParse, fields }: DataInputProps) {
   const handleFileInput = useCallback((event: React.DragEvent<HTMLTextAreaElement>) => {
     event.preventDefault()
     const file = event.dataTransfer.files[0]
@@ -42,7 +42,7 @@ export function DataInput({ value, onChange, onDataParse, data }: DataInputProps
         />
       </div>
       <div className="w-1/2 p-4 bg-gray-50">
-        <PropertyList data={data} />
+        <PropertyList fields={fields} />
       </div>
     </div>
   )

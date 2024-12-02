@@ -1,4 +1,4 @@
-import { GroupByConfig as GroupByConfigType, ChartType, DataItem, Aggregation } from '../types'
+import { GroupByConfig as GroupByConfigType, ChartType, DataItem, Aggregation, Field } from '../types'
 import { DataChart } from './DataChart'
 import { DataTable } from './DataTable'
 import { GroupByConfig } from './GroupByConfig'
@@ -8,7 +8,7 @@ import { processData } from '../utils/dataProcessing'
 import { useMemo } from 'react'
 
 interface ConfigPanelProps {
-  fields: string[]
+  fields: Field[]
   groupByConfigs: GroupByConfigType
   onGroupByConfigsChange: (configs: GroupByConfigType) => void
   aggregations: Aggregation[]
@@ -29,7 +29,7 @@ export function ConfigPanel({
   data
 }: ConfigPanelProps) {
   const numericFields = fields.filter(field => 
-    data.length && typeof data[0][field] === 'number'
+    field.type === 'number'
   )
 
   const processedData = useMemo(() => {

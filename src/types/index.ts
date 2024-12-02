@@ -1,11 +1,11 @@
 export type ChartType = 'bar' | 'line' | 'scatter' | null
 
 export interface DataItem {
-  [key: string]: string | number | boolean
+  [key: string]: string | number | boolean | null | Date
 }
 
 export interface GroupByConfig {
-  fields: string[]
+  fields: Field[]
 }
 
 export interface ChartData {
@@ -20,6 +20,13 @@ export interface ChartData {
 export type AggregationType = "sum" | "max" | "min" | "count" | "average"
 
 export type Aggregation = {
-  field: string
+  field: Field
   type: AggregationType
+}
+
+export type FieldType = "string" | "number" | "boolean" | "date"
+export type Field = {
+  name: string
+  isNullable: boolean
+  type: FieldType
 }

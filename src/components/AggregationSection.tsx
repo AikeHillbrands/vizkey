@@ -1,8 +1,8 @@
-import { Aggregation, AggregationType } from "../types"
+import { Aggregation, AggregationType, Field } from "../types"
 
 
 interface AggregationSectionProps {
-  numericFields: string[]
+  numericFields: Field[]
   aggregations: Aggregation[]
   onAggregationsChange: (aggregations: Aggregation[]) => void
 }
@@ -44,11 +44,11 @@ export function AggregationSection({
           <div key={index} className="flex items-center gap-2">
             <select
               className="flex-1 p-2 border rounded"
-              value={agg.field}
-              onChange={(e) => updateAggregation(index, { field: e.target.value })}
+              value={agg.field.name}
+              onChange={(e) => updateAggregation(index, { field: numericFields.find(f => f.name === e.target.value) })}
             >
               {numericFields.map(field => (
-                <option key={field} value={field}>{field}</option>
+                <option key={field.name} value={field.name}>{field.name}</option>
               ))}
             </select>
             <select
