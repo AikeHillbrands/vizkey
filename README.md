@@ -1,5 +1,7 @@
 # Data Visualization Tool
 
+Try out here: https://vizkey.aike.dev/
+
 A lightweight frontend-only data visualization tool that allows you to render JSON or CSV data into interactive charts. Built with TypeScript, React, Vite, and Chart.js.
 
 ## Features
