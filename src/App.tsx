@@ -23,17 +23,21 @@ function App() {
   }, [inputText])
 
   return (
-    <TabLayout activeTab={activeTab} onTabChange={setActiveTab}>
-      {activeTab === "data" ? (
-        <DataInput
-          value={inputText}
-          onChange={(data) => setInputText(data)}
-          fields={inputData.fields}
-        />
-      ) : (
-        <ChartingPage inputData={inputData} />
-      )}
-    </TabLayout>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="border-b border-gray-200 dark:border-gray-700">
+      </div>
+      <TabLayout activeTab={activeTab} onTabChange={setActiveTab}>
+        {activeTab === "data" ? (
+          <DataInput
+            value={inputText}
+            onChange={(data) => setInputText(data)}
+            fields={inputData.fields}
+          />
+        ) : (
+          <ChartingPage inputData={inputData} />
+        )}
+      </TabLayout>
+    </div>
   )
 }
 

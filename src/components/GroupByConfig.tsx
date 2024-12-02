@@ -44,10 +44,10 @@ export function GroupByConfig({
       <div key={field.name} className="flex flex-col space-y-2">
         <button
           onClick={() => toggleField(field)}
-          className={`p-2 rounded text-left truncate ${
+          className={`p-2 rounded text-left truncate border ${
             isSelected
-              ? 'bg-blue-100 border-blue-500 border-2 text-blue-700'
-              : 'border border-gray-300 hover:border-blue-500'
+              ? 'bg-blue-100 border-blue-500 ring-1 ring-blue-500 text-blue-700 dark:bg-blue-900 dark:border-blue-700 dark:ring-blue-700 dark:text-blue-300'
+              : 'border-gray-200 dark:border-gray-700 hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-700'
           }`}
         >
           {field.name}
@@ -57,7 +57,7 @@ export function GroupByConfig({
           <select
             value={selectedField?.truncation || 'exact'}
             onChange={(e) => updateTruncation(field, e.target.value as DateTruncationOption)}
-            className="text-sm p-1 border rounded"
+            className="text-sm p-1 border rounded dark:bg-gray-900"
           >
             {truncationOptions.map(option => (
               <option key={option.key} value={option.key}>
@@ -75,7 +75,7 @@ export function GroupByConfig({
       {/* String Fields Section */}
       {stringFields.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-medium text-gray-700">String Fields</h4>
+          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-400">String Fields</h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {stringFields.map(field => (
               <FieldButton key={field.name} field={field} />
@@ -87,7 +87,7 @@ export function GroupByConfig({
       {/* Date Fields Section */}
       {dateFields.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-medium text-gray-700">Date Fields</h4>
+          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-400">Date Fields</h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {dateFields.map(field => (
               <FieldButton key={field.name} field={field} />

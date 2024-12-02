@@ -10,6 +10,7 @@ A lightweight frontend-only data visualization tool that allows you to render JS
 * Browser-based processing - no backend required
 * Support for multiple chart types
 * Clean, modern UI built with Tailwind CSS
+* Dark mode support with system-wide preference detection
 
 ## How It Works
 

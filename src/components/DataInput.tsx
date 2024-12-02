@@ -24,7 +24,7 @@ export function DataInput({ value, onChange, fields }: {
     <div className="h-full flex">
       <div className="w-1/2 p-4 border-r">
         <textarea
-          className="w-full h-full p-4 border rounded-lg font-mono text-xs"
+          className="w-full h-full p-4 border rounded-lg font-mono text-xs dark:bg-gray-900"
           placeholder="Paste your JSON or CSV data here or drag a file..."
           value={value}
           onChange={(e) => {
@@ -34,7 +34,7 @@ export function DataInput({ value, onChange, fields }: {
           onDrop={handleFileInput}
         />
       </div>
-      <div className="w-1/2 p-4 bg-gray-50">
+      <div className="w-1/2 p-4 bg-gray-50 dark:bg-gray-900">
         <PropertyList fields={fields} />
       </div>
     </div>

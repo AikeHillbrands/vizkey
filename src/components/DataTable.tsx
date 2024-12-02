@@ -8,32 +8,32 @@ export function DataTable({ rows, fields }: {
 
   return (
     <div className="overflow-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+      <table className="w-full border-collapse">
+        <thead>
           <tr>
             {fields.map(field => (
               <th
                 key={field.name}
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider bg-gray-50 dark:bg-gray-800"
               >
                 {field.name}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
           {rows.map((row, i) => (
             <tr key={i}>
               {fields.map((field, fieldIndex) => {
                 const value = row[field.name]
-
                 const stringValue = value instanceof Date ? value.toISOString() : String(value)
 
                 return (
-                <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {stringValue}
-                </td>
-              )})}
+                  <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200 bg-white dark:bg-gray-900">
+                    {stringValue}
+                  </td>
+                )
+              })}
             </tr>
           ))}
         </tbody>

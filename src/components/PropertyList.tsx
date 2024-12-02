@@ -9,24 +9,24 @@ const TYPE_COLORS: Record<
   { bg: string; text: string; border: string }
 > = {
   number: {
-    bg: "bg-blue-50",
-    text: "text-blue-700",
-    border: "border-blue-200",
+    bg: "bg-blue-50 dark:bg-blue-900",
+    text: "text-blue-700 dark:text-blue-200",
+    border: "border-blue-200 dark:border-blue-900",
   },
   boolean: {
-    bg: "bg-teal-50",
-    text: "text-teal-700",
-    border: "border-teal-200",
+    bg: "bg-teal-50 dark:bg-teal-900",
+    text: "text-teal-700 dark:text-teal-200",
+    border: "border-teal-200 dark:border-teal-900",
   },
   string: {
-    bg: "bg-orange-50",
-    text: "text-orange-700",
-    border: "border-orange-200",
+    bg: "bg-orange-50 dark:bg-orange-900",
+    text: "text-orange-700 dark:text-orange-200",
+    border: "border-orange-200 dark:border-orange-900",
   },
   date: {
-    bg: "bg-purple-50",
-    text: "text-purple-700",
-    border: "border-purple-200",
+    bg: "bg-purple-50 dark:bg-purple-900",
+    text: "text-purple-700 dark:text-purple-200",
+    border: "border-purple-200 dark:border-purple-900",
   },
 }
 
