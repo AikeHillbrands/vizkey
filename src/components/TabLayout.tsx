@@ -28,7 +28,7 @@ export function TabLayout({ activeTab, onTabChange, children }: TabLayoutProps) 
             }`}
             onClick={() => onTabChange('config')}
           >
-            Configuration
+            Visualization
           </button>
           <DarkModeToggle />
         </div>

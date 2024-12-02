@@ -48,7 +48,6 @@ export function ChartingPage({
 
   return (
     <div className="h-full flex">
-      {/* Left side - Configuration */}
       <div className="w-1/3 p-4 space-y-6 overflow-auto border-r">
         {/* Grouping section */}
         <div className="space-y-2">
