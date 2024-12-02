@@ -27,14 +27,14 @@ export function DataTable({ rows, fields }: {
               {fields.map((field, fieldIndex) => {
                 const value = row[field.name]
 
-                if (value === 'undefined') return <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200 bg-white dark:bg-gray-900">
+                if (value === 'undefined') return <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900">
                   <span className="italic">undefined</span>
                 </td>
 
                 const stringValue = value instanceof Date ? value.toISOString() : String(value)
 
                 return (
-                  <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200 bg-white dark:bg-gray-900">
+                  <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-xs text-gray-900 dark:text-gray-200 bg-white dark:bg-gray-900">
                     {stringValue}
                   </td>
                 )
