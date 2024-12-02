@@ -1,38 +1,39 @@
-import { DataItem } from '../types'
+import { DataItem, Field } from '../types'
 
-interface DataTableProps {
-  data: DataItem[]
-}
-
-export function DataTable({ data }: DataTableProps) {
-  if (!data.length) return null
-
-  const columns = Object.keys(data[0])
+export function DataTable({ rows, fields }: {
+  rows: DataItem[]
+  fields: Field[]
+}) {
+  if (!rows.length) return null
 
   return (
     <div className="overflow-auto">
-        table
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
-            {columns.map(column => (
+            {fields.map(field => (
               <th
-                key={column}
+                key={field.name}
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                {column}
+                {field.name}
               </th>
             ))}
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data.map((row, i) => (
+          {rows.map((row, i) => (
             <tr key={i}>
-              {columns.map(column => (
-                <td key={column} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {String(row[column])}
+              {fields.map((field, fieldIndex) => {
+                const value = row[field.name]
+
+                const stringValue = value instanceof Date ? value.toISOString() : String(value)
+
+                return (
+                <td key={fieldIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  {stringValue}
                 </td>
-              ))}
+              )})}
             </tr>
           ))}
         </tbody>

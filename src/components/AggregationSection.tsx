@@ -23,11 +23,11 @@ export function AggregationSection({
   const addAggregation = () => {
     onAggregationsChange([
       ...aggregations,
-      { field: numericFields[0], type: "average" }
+      { field: numericFields[0], type: "average", key: "average(numericFields[0].name)" }
     ])
   }
 
-  const updateAggregation = (index: number, updates: Partial<Aggregation>) => {
+  const updateAggregation = (index: number, updates: Aggregation) => {
     const newAggregations = [...aggregations]
     newAggregations[index] = { ...newAggregations[index], ...updates }
     onAggregationsChange(newAggregations)
@@ -40,12 +40,16 @@ export function AggregationSection({
   return (
     <div className="space-y-2">
       <div className="space-y-2">
-        {aggregations.map((agg, index) => (
+        {aggregations.map((aggregation, index) => (
           <div key={index} className="flex items-center gap-2">
             <select
               className="flex-1 p-2 border rounded"
-              value={agg.field.name}
-              onChange={(e) => updateAggregation(index, { field: numericFields.find(f => f.name === e.target.value) })}
+              value={aggregation.field.name}
+              onChange={(e) => {
+                const field = numericFields.find(f => f.name === e.target.value)
+                if (!field) return
+                return updateAggregation(index, { field, type: aggregation.type, key: `${aggregation.type}(${field.name})` })
+              }}
             >
               {numericFields.map(field => (
                 <option key={field.name} value={field.name}>{field.name}</option>
@@ -53,10 +57,17 @@ export function AggregationSection({
             </select>
             <select
               className="flex-1 p-2 border rounded"
-              value={agg.type}
-              onChange={(e) => updateAggregation(index, { 
-                type: e.target.value as AggregationType,
-              })}
+              value={aggregation.type}
+              onChange={(e) => {
+                const field = numericFields.find(f => f.name === aggregation.field.name)
+                if (!field) return
+                
+                return updateAggregation(index, { 
+                  field,
+                  type: e.target.value as AggregationType,
+                  key: `${e.target.value}(${field.name})`
+                })
+              }}
             >
               {AGGREGATION_METHODS.map(method => (
                 <option key={method} value={method}>{method}</option>

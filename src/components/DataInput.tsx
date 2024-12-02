@@ -2,14 +2,11 @@ import { useCallback } from 'react'
 import { Field } from '../types'
 import { PropertyList } from './PropertyList'
 
-interface DataInputProps {
+export function DataInput({ value, onChange, fields }: {
   value: string
   onChange: (value: string) => void
-  onDataParse: (text: string) => void
   fields: Field[]
-}
-
-export function DataInput({ value, onChange, onDataParse, fields }: DataInputProps) {
+}) {
   const handleFileInput = useCallback((event: React.DragEvent<HTMLTextAreaElement>) => {
     event.preventDefault()
     const file = event.dataTransfer.files[0]
@@ -18,11 +15,10 @@ export function DataInput({ value, onChange, onDataParse, fields }: DataInputPro
     reader.onload = (e) => {
       const text = e.target?.result as string
       onChange(text)
-      onDataParse(text)
     }
     
     reader.readAsText(file)
-  }, [onChange, onDataParse])
+  }, [onChange])
 
   return (
     <div className="h-full flex">
@@ -33,9 +29,6 @@ export function DataInput({ value, onChange, onDataParse, fields }: DataInputPro
           value={value}
           onChange={(e) => {
             onChange(e.target.value)
-            if (e.target.value) {
-              onDataParse(e.target.value)
-            }
           }}
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleFileInput}

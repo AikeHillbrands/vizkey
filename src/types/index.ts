@@ -1,11 +1,14 @@
+import { DateTruncationOption } from "../utils/truncate-date"
+
 export type ChartType = 'bar' | 'line' | 'scatter' | null
 
+export type DataValue = string | number | boolean | null | Date
 export interface DataItem {
-  [key: string]: string | number | boolean | null | Date
+  [key: string]: DataValue
 }
 
-export interface GroupByConfig {
-  fields: Field[]
+export interface GroupByConfigType {
+  fields: GroupByField[]
 }
 
 export interface ChartData {
@@ -22,11 +25,21 @@ export type AggregationType = "sum" | "max" | "min" | "count" | "average"
 export type Aggregation = {
   field: Field
   type: AggregationType
+  key: string
 }
 
-export type FieldType = "string" | "number" | "boolean" | "date"
-export type Field = {
+export type FieldType = 'string' | 'number' | 'date' | 'boolean'
+
+export interface Field {
   name: string
-  isNullable: boolean
   type: FieldType
+  isNullable: boolean
 }
+
+export interface GroupByField {
+  field: Field
+  truncation?: DateTruncationOption
+}
+
+export type InputValue = string | number | boolean | null | undefined
+export type InputRecord = Record<string, InputValue>

@@ -1,21 +1,19 @@
 import { Chart } from 'react-chartjs-2'
 import { ChartType, DataItem } from '../types'
 
-interface DataChartProps {
-  data: DataItem[]
+export function DataChart({ rows, type }: {
+  rows: DataItem[]
   type: Exclude<ChartType, null>
-}
-
-export function DataChart({ data, type }: DataChartProps) {
-  if (!data.length) return null
+}) {
+  if (!rows.length) return null
 
   const chartData = {
-    labels: data.map((_, i) => `Item ${i + 1}`),
-    datasets: Object.keys(data[0])
-      .filter(key => typeof data[0][key] === 'number')
+    labels: rows.map((_, i) => `Item ${i + 1}`),
+    datasets: Object.keys(rows[0])
+      .filter(key => typeof rows[0][key] === 'number')
       .map(key => ({
         label: key,
-        data: data.map(item => Number(item[key])),
+        data: rows.map(item => Number(item[key])),
         backgroundColor: `hsl(${Math.random() * 360}, 70%, 50%)`,
       }))
   }
