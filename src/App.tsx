@@ -34,7 +34,7 @@ function App() {
               value={inputText}
               onChange={(data) => setInputText(data)}
             />
-            <div className="w-1/2 bg-gray-50 dark:bg-gray-900 p-4">
+            <div className="w-1/2 bg-gray-50 dark:bg-gray-900 p-4 h-[calc(100vh-4rem)]">
               {datasets.length > 0 && (
                 <div className="mb-4">
                   <label className="block text-sm font-medium mb-2">

@@ -21,9 +21,12 @@ export function AggregationSection({
   onAggregationsChange,
 }: AggregationSectionProps) {
   const addAggregation = () => {
+    const field = numericFields[0]
+    if (!field) return
+
     onAggregationsChange([
       ...aggregations,
-      { field: numericFields[0], type: "average", key: "average(numericFields[0].name)" }
+      { field: field, type: "average", key: `average(${field.name})` }
     ])
   }
 
@@ -93,12 +96,12 @@ export function AggregationSection({
             </button>
           </div>
         ))}
-        <button
+        {numericFields.length > 0 ? <button
           className="text-sm text-blue-500"
           onClick={addAggregation}
         >
           + Add Aggregation
-        </button>
+        </button> : <p className="text-sm text-gray-500">No numeric fields available, check your data to aggregate</p>}
       </div>
     </div>
   )
