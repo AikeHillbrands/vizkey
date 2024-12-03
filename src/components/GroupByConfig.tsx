@@ -77,7 +77,7 @@ export function GroupByConfig({
       {stringFields.length > 0 && (
         <div className="space-y-2">
           <h4 className="text-sm font-medium text-gray-700 dark:text-gray-400">String Fields</h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-2">
             {stringFields.map(field => (
               <FieldButton key={field.name} field={field} />
             ))}
