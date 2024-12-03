@@ -1,11 +1,14 @@
-import { ChartType } from '../types'
+import { ChartType } from '../types';
 
 interface VisualizationControlsProps {
-  chartType: ChartType
-  onChartTypeChange: (type: ChartType) => void
+  chartType: ChartType;
+  onChartTypeChange: (type: ChartType) => void;
 }
 
-export function VisualizationControls({ chartType, onChartTypeChange }: VisualizationControlsProps) {
+export function VisualizationControls({
+  chartType,
+  onChartTypeChange,
+}: VisualizationControlsProps) {
   return (
     <div className="space-y-2">
       <h3 className="font-bold">Visualization</h3>
@@ -20,5 +23,5 @@ export function VisualizationControls({ chartType, onChartTypeChange }: Visualiz
         <option value="scatter">Scatter Plot</option>
       </select>
     </div>
-  )
-} 
+  );
+}

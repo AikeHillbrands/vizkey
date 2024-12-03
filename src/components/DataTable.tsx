@@ -1,13 +1,7 @@
-import { DataItem, Field } from "../types"
+import { DataItem, Field } from '../types';
 
-export function DataTable({
-  rows,
-  fields,
-}: {
-  rows: DataItem[]
-  fields: Field[]
-}) {
-  if (!rows.length) return null
+export function DataTable({ rows, fields }: { rows: DataItem[]; fields: Field[] }) {
+  if (!rows.length) return null;
 
   return (
     <div className="overflow-auto">
@@ -28,9 +22,9 @@ export function DataTable({
           {rows.map((row, i) => (
             <tr key={i}>
               {fields.map((field, fieldIndex) => {
-                const value = row[field.name]
+                const value = row[field.name];
 
-                if (value === "undefined")
+                if (value === 'undefined')
                   return (
                     <td
                       key={fieldIndex}
@@ -38,9 +32,9 @@ export function DataTable({
                     >
                       <span className="italic">undefined</span>
                     </td>
-                  )
+                  );
 
-                if (typeof value === "string" && value.length === 0) {
+                if (typeof value === 'string' && value.length === 0) {
                   return (
                     <td
                       key={fieldIndex}
@@ -48,11 +42,10 @@ export function DataTable({
                     >
                       <span className="italic">empty</span>
                     </td>
-                  )
+                  );
                 }
 
-                const stringValue =
-                  value instanceof Date ? value.toISOString() : String(value)
+                const stringValue = value instanceof Date ? value.toISOString() : String(value);
 
                 return (
                   <td
@@ -61,12 +54,12 @@ export function DataTable({
                   >
                     {stringValue}
                   </td>
-                )
+                );
               })}
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 }

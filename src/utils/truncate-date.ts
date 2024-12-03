@@ -1,42 +1,34 @@
 type ParsedDate = {
-  year: number
-  month: number
-  day: number
-  hour: number
-  minute: number
-  second: number
-}
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+};
 
 function defineTruncations<
-  TMap extends Record<
-    string,
-    { label: string; transform: (date: ParsedDate) => ParsedDate }
-  >
+  TMap extends Record<string, { label: string; transform: (date: ParsedDate) => ParsedDate }>,
 >(options: TMap) {
-  return options
+  return options;
 }
 
 // Date truncation function
-export function truncateDate(
-  date: Date | null,
-  truncation: DateTruncationOption
-): Date | null {
-  if (!date) return null
+export function truncateDate(date: Date | null, truncation: DateTruncationOption): Date | null {
+  if (!date) return null;
 
-  const inputDate = parseDate(date)
+  const inputDate = parseDate(date);
 
-  const transformedDate = dateTruncations[truncation].transform(inputDate)
+  const transformedDate = dateTruncations[truncation].transform(inputDate);
 
-  return parsedDateToDate(transformedDate)
+  return parsedDateToDate(transformedDate);
 }
 
 export function parseDate(date: Date): ParsedDate {
   const match =
-    date
-      .toISOString()
-      .match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}.\d{3})Z/) ?? []
+    date.toISOString().match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}.\d{3})Z/) ?? [];
 
-  if (!match) throw new Error("Error parsing date!")
+  if (!match) throw new Error('Error parsing date!');
 
   return {
     year: Number(match[1]),
@@ -45,38 +37,38 @@ export function parseDate(date: Date): ParsedDate {
     hour: Number(match[4]),
     minute: Number(match[5]),
     second: Number(match[6]),
-  }
+  };
 }
 
 export function parsedDateToDate(parsedDate: ParsedDate): Date {
-  const yearString = parsedDate.year.toString()
-  const monthString = parsedDate.month.toString().padStart(2, "0")
-  const dayString = parsedDate.day.toString().padStart(2, "0")
-  const hourString = parsedDate.hour.toString().padStart(2, "0")
-  const minuteString = parsedDate.minute.toString().padStart(2, "0")
-  const secondString = parsedDate.second.toFixed(3).padStart(6, "0")
+  const yearString = parsedDate.year.toString();
+  const monthString = parsedDate.month.toString().padStart(2, '0');
+  const dayString = parsedDate.day.toString().padStart(2, '0');
+  const hourString = parsedDate.hour.toString().padStart(2, '0');
+  const minuteString = parsedDate.minute.toString().padStart(2, '0');
+  const secondString = parsedDate.second.toFixed(3).padStart(6, '0');
 
   return new Date(
     `${yearString}-${monthString}-${dayString}T${hourString}:${minuteString}:${secondString}Z`
-  )
+  );
 }
 
-export type DateTruncationOption = keyof typeof dateTruncations
+export type DateTruncationOption = keyof typeof dateTruncations;
 
 export const dateTruncations = defineTruncations({
   exact: {
-    label: "Exact",
+    label: 'Exact',
     transform: (date) => date,
   },
   minute: {
-    label: "Minute",
+    label: 'Minute',
     transform: (date) => ({
       ...date,
       second: 0,
     }),
   },
-  "20minute": {
-    label: "20 Minute",
+  '20minute': {
+    label: '20 Minute',
     transform: (date) => ({
       ...date,
       minute: date.minute - (date.minute % 20),
@@ -84,7 +76,7 @@ export const dateTruncations = defineTruncations({
     }),
   },
   hour: {
-    label: "Hour",
+    label: 'Hour',
     transform: (date) => ({
       ...date,
       hour: 0,
@@ -92,8 +84,8 @@ export const dateTruncations = defineTruncations({
       second: 0,
     }),
   },
-  "6hour": {
-    label: "6 Hour",
+  '6hour': {
+    label: '6 Hour',
     transform: (date) => ({
       ...date,
       hour: date.hour - (date.hour % 6),
@@ -102,7 +94,7 @@ export const dateTruncations = defineTruncations({
     }),
   },
   day: {
-    label: "Day",
+    label: 'Day',
     transform: (date) => ({
       ...date,
       hour: 0,
@@ -111,7 +103,7 @@ export const dateTruncations = defineTruncations({
     }),
   },
   month: {
-    label: "Month",
+    label: 'Month',
     transform: (date) => ({
       ...date,
       day: 1,
@@ -121,7 +113,7 @@ export const dateTruncations = defineTruncations({
     }),
   },
   quarter: {
-    label: "Quarter",
+    label: 'Quarter',
     transform: (date) => ({
       ...date,
       month: date.month - (date.month % 3) + 1,
@@ -132,7 +124,7 @@ export const dateTruncations = defineTruncations({
     }),
   },
   year: {
-    label: "Year",
+    label: 'Year',
     transform: (date) => ({
       ...date,
       month: 1,
@@ -142,4 +134,4 @@ export const dateTruncations = defineTruncations({
       second: 0,
     }),
   },
-})
+});

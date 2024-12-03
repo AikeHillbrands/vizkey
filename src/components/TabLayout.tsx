@@ -1,8 +1,8 @@
-import {DarkModeToggle} from './DarkModeToggle';
+import { DarkModeToggle } from './DarkModeToggle';
 interface TabLayoutProps {
-  activeTab: 'data' | 'config'
-  onTabChange: (tab: 'data' | 'config') => void
-  children: React.ReactNode
+  activeTab: 'data' | 'config';
+  onTabChange: (tab: 'data' | 'config') => void;
+  children: React.ReactNode;
 }
 
 export function TabLayout({ activeTab, onTabChange, children }: TabLayoutProps) {
@@ -33,9 +33,7 @@ export function TabLayout({ activeTab, onTabChange, children }: TabLayoutProps) 
           <DarkModeToggle />
         </div>
       </div>
-      <div className="flex-1 overflow-hidden">
-        {children}
-      </div>
+      <div className="flex-1 overflow-hidden">{children}</div>
     </div>
-  )
-} 
+  );
+}
