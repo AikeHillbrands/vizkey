@@ -44,8 +44,8 @@ export function PropertyList({ fields }: PropertyListProps) {
   })
 
   return (
-    <div className="h-full flex flex-col px-4">
-      <h2 className="text-lg font-bold mb-4 mt-4">Detected Properties</h2>
+    <div className="h-full flex flex-col">
+      <h2 className="text-lg font-bold mb-4">Detected Properties</h2>
       <div className="flex-1 overflow-auto">
         <div className="space-y-2">
           {properties.map((prop) => (

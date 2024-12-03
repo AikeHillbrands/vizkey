@@ -1,12 +1,9 @@
 import { useState, useCallback } from 'react'
-import { Field } from '../types'
-import { PropertyList } from './PropertyList'
 import Papa from 'papaparse'
 
-export function DataInput({ value, onChange, fields }: {
+export function DataInput({ value, onChange }: {
   value: string
   onChange: (value: string) => void
-  fields: Field[]
 }) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -171,7 +168,6 @@ export function DataInput({ value, onChange, fields }: {
   }
 
   return (
-    <div className="h-full flex">
       <div className="w-1/2 p-4 border-r flex flex-col">
         <textarea
           className={`w-full border rounded-lg font-mono text-xs dark:bg-gray-900 p-4 ${
@@ -197,10 +193,6 @@ export function DataInput({ value, onChange, fields }: {
           </div>
         )}
       </div>
-      <div className="w-1/2 bg-gray-50 dark:bg-gray-900">
-        <PropertyList fields={fields} />
-      </div>
-    </div>
   )
 }
 
